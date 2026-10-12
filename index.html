@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chá de Fraldas do Miguel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde:#AFBE6C; --verde-escuro:#5c6a26; --verde-tinta:#3c4619; --verde-claro:#eef2db; --verde-medio:#d6dfa9;
+    --bg:#fbfaf2; --card:#fff; --ink:#3a3b2f; --muted:#83846f; --line:#e7e8d6;
+    --madeira:#9b6a43; --caramelo:#e5bb84; --azul:#9cc0db; --urso:#c99467; --urso-claro:#f1d6b8;
+    --danger:#b9574a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(var(--verde-medio) 1.2px, transparent 1.4px);background-size:22px 22px}
+  .wrap{max-width:580px;margin:0 auto;padding:20px 16px 40px}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;background:var(--verde);border-radius:30px;padding:30px 20px 0;overflow:hidden;text-align:center;margin-bottom:18px;
+    box-shadow:0 10px 30px -18px rgba(60,70,25,.6)}
+  .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.22) 1.5px,transparent 1.6px);background-size:18px 18px;pointer-events:none}
+  .nuvem{position:absolute;background:#fff;border-radius:40px;opacity:.75}
+  .nuvem::before,.nuvem::after{content:"";position:absolute;background:#fff;border-radius:50%}
+  .n1{width:70px;height:22px;top:22px;left:-10px}.n1::before{width:30px;height:30px;top:-14px;left:12px}.n1::after{width:24px;height:24px;top:-9px;left:36px}
+  .n2{width:60px;height:18px;top:56px;right:-6px}.n2::before{width:26px;height:26px;top:-12px;left:10px}.n2::after{width:20px;height:20px;top:-7px;left:30px}
+  .estrela{position:absolute;color:#fff;opacity:.9;font-size:16px}
+  .convite{position:relative;display:inline-block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:var(--verde-tinta);
+    background:rgba(255,255,255,.55);padding:6px 14px;border-radius:99px}
+  h1{position:relative;font-family:"Baloo 2",Nunito,sans-serif;text-transform:uppercase;margin:12px 0 0;line-height:.95;color:var(--verde-tinta)}
+  h1 .l1{display:block;font-size:30px;font-weight:700;letter-spacing:.04em}
+  h1 .l2{display:block;font-size:52px;font-weight:800;color:#fff;text-shadow:0 3px 0 var(--verde-escuro)}
+  .data{position:relative;margin:10px 0 0;color:var(--verde-tinta);font-weight:700;font-size:15px}
+  .cena{position:relative;display:flex;justify-content:center;align-items:flex-end;gap:4px;margin-top:14px;height:118px}
+  .cena svg{display:block;flex:none}
+  .cavalo{width:128px;transform-origin:50% 92%;animation:balanca 3.2s ease-in-out infinite}
+  .carro{width:112px;margin-bottom:4px;animation:anda 2.4s ease-in-out infinite}
+  .urso{width:78px;margin-bottom:2px}
+  .grama{position:relative;height:22px;margin:0 -20px;background:var(--verde-escuro);border-radius:50% 50% 0 0/100% 100% 0 0}
+  @keyframes balanca{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
+  @keyframes anda{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
+  @media (prefers-reduced-motion:reduce){.cavalo,.carro{animation:none}}
+
+  /* ---------- CARDS ---------- */
+  .card{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:24px;padding:20px 20px 22px;margin-bottom:14px}
+  .step{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;color:var(--verde-escuro);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+  .step i{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--verde);color:#fff;font-style:normal;font-size:12px;letter-spacing:0}
+  .q{display:block;font-family:"Baloo 2",Nunito,sans-serif;font-weight:700;font-size:21px;line-height:1.2;margin:0 0 14px;color:var(--verde-tinta)}
+  input[type=text]{width:100%;font:inherit;font-size:17px;padding:14px 16px;border:2px solid var(--line);border-radius:16px;background:#fdfdf8;color:var(--ink)}
+  input[type=text]:focus{outline:none;border-color:var(--verde);box-shadow:0 0 0 4px var(--verde-claro)}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .choice{font:inherit;display:flex;gap:10px;align-items:center;text-align:left;padding:14px 12px;border:2px solid var(--line);border-radius:18px;background:#fdfdf8;cursor:pointer;color:var(--ink);transition:.15s}
+  .choice .emo{font-size:26px;line-height:1;flex:none}
+  .choice strong{display:block;font-size:15px;line-height:1.25}
+  .choice span{font-size:12.5px;color:var(--muted)}
+  .choice:hover{border-color:var(--verde-medio)}
+  .choice[aria-pressed=true]{border-color:var(--verde);background:var(--verde-claro);box-shadow:inset 0 0 0 1px var(--verde)}
+  .sizes{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:8px}
+  .size{font:inherit;padding:12px 6px 12px;border:2px solid var(--line);border-radius:18px;background:#fdfdf8;cursor:pointer;text-align:center;color:var(--ink);transition:.15s}
+  .size svg{width:34px;height:26px;display:block;margin:0 auto 2px}
+  .size b{display:block;font-family:"Baloo 2",Nunito,sans-serif;font-size:28px;line-height:1;color:var(--verde-tinta)}
+  .size small{display:block;font-size:11px;color:var(--muted);margin-bottom:6px}
+  .size .left{font-size:13px;font-weight:800;color:var(--verde-escuro)}
+  .size .bar{height:6px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:7px}
+  .size .bar i{display:block;height:100%;background:var(--verde);transition:width .3s}
+  .size[aria-pressed=true]{border-color:var(--verde);background:var(--verde-claro);box-shadow:inset 0 0 0 1px var(--verde)}
+  .size[aria-pressed=true] .bar i{background:var(--verde-escuro)}
+  .size:disabled{opacity:.45;cursor:not-allowed}
+  .size:disabled .left{color:var(--danger)}
+  .note{font-size:14px;color:var(--muted);margin:12px 0 0}
+  .pixbox{background:var(--verde-claro);border:1.5px dashed var(--verde);border-radius:18px;padding:14px}
+  .pixbox textarea{width:100%;font:12px/1.45 ui-monospace,Menlo,monospace;border:1px solid var(--verde-medio);border-radius:12px;padding:10px;resize:none;height:92px;background:#fff;color:var(--ink);word-break:break-all}
+  .copy{margin-top:10px;font:inherit;font-weight:800;font-size:16px;padding:13px 16px;border:0;border-radius:14px;background:var(--verde-escuro);color:#fff;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:8px}
+  .copy:active{transform:scale(.98)}
+  .btn{width:100%;font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:20px;letter-spacing:.02em;padding:14px;border:0;border-radius:18px;background:var(--verde-escuro);color:#fff;cursor:pointer;transition:.15s;
+    box-shadow:0 5px 0 var(--verde-tinta)}
+  .btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--verde-tinta)}
+  .btn:disabled{opacity:.35;cursor:not-allowed;box-shadow:none}
+  .err{color:var(--danger);font-weight:700;font-size:14px;margin:12px 0 0;text-align:center}
+  .thanks{text-align:center;padding:30px 20px}
+  .thanks .cav{width:110px;margin:0 auto}
+  .thanks h2{font-family:"Baloo 2",Nunito,sans-serif;font-size:34px;margin:6px 0 4px;color:var(--verde-tinta)}
+  .thanks p{color:var(--muted);margin:0}
+  .rodape{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+  .rodape svg{width:56px;vertical-align:middle;margin:0 4px}
+  .carta{padding:24px 22px;font-size:16.5px;color:var(--ink)}
+  .carta p{margin:0 0 12px}
+  .carta .ola{font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:26px;line-height:1.1;color:var(--verde-escuro);margin-bottom:10px}
+  .carta .marca{display:flex;gap:12px;align-items:center;background:var(--verde-claro);border-radius:16px;padding:12px 14px;margin:4px 0 14px;font-size:15px}
+  .carta .marca svg{width:40px;height:30px;flex:none}
+  .carta .assina{margin:0;color:var(--muted);font-size:15px}
+  .carta .assina span{font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;font-size:28px;color:var(--verde-escuro);line-height:1}
+  .carta .dica{margin:14px 0 0;padding-top:12px;border-top:1.5px dashed var(--line);font-weight:700;color:var(--verde-escuro);text-align:center;font-size:15px}
+  .hidden{display:none!important}
+  .loading{text-align:center;color:var(--muted);padding:30px;font-weight:700}
+  @media (max-width:440px){
+    .sizes{grid-template-columns:repeat(2,1fr)}
+    h1 .l1{font-size:25px} h1 .l2{font-size:44px}
+    .cavalo{width:106px}.carro{width:92px}.urso{width:64px}.cena{height:100px}
+    .choice{flex-direction:column;align-items:flex-start;gap:6px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Desenhos reutilizáveis -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="s-cavalo" viewBox="0 0 140 120">
+      <path d="M8 104 Q70 126 132 104" stroke="#9b6a43" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M40 74 L34 110 M52 76 L50 112 M94 74 L98 112 M104 72 L110 110" stroke="#e5bb84" stroke-width="7" stroke-linecap="round"/>
+      <path d="M34 62 Q16 58 12 80 Q22 72 34 72Z" fill="#9b6a43"/>
+      <ellipse cx="70" cy="64" rx="40" ry="17" fill="#e5bb84"/>
+      <path d="M96 56 L106 26 Q110 14 124 18 L134 28 Q137 36 129 38 L118 38 L112 64 Z" fill="#e5bb84"/>
+      <path d="M103 28 Q94 40 96 58 L105 56 Q102 42 109 30Z" fill="#9b6a43"/>
+      <path d="M110 18 L106 8 L116 15Z" fill="#9b6a43"/>
+      <circle cx="121" cy="27" r="2.6" fill="#3a3b2f"/>
+      <path d="M58 48 h24 a5 5 0 0 1 5 5 v10 h-34 v-10 a5 5 0 0 1 5-5z" fill="#AFBE6C"/>
+      <path d="M53 58 h34" stroke="#5c6a26" stroke-width="2.5"/>
+      <circle cx="131" cy="31" r="1.6" fill="#9b6a43"/>
+    </symbol>
+    <symbol id="s-carro" viewBox="0 0 140 92">
+      <path d="M10 62 Q10 47 25 45 L40 43 L55 24 Q59 19 67 19 L93 19 Q102 19 107 26 L117 43 L125 45 Q133 47 133 58 L133 66 Q133 70 129 70 L14 70 Q10 70 10 66Z" fill="#9cc0db"/>
+      <path d="M60 27 L71 27 L71 43 L49 43Z" fill="#fff"/>
+      <path d="M77 27 L93 27 Q97 27 99 31 L106 43 L77 43Z" fill="#fff"/>
+      <rect x="64" y="50" width="12" height="3" rx="1.5" fill="#6f98b8"/>
+      <circle cx="127" cy="54" r="4" fill="#ffe08a"/>
+      <circle cx="40" cy="70" r="13" fill="#3a3b2f"/><circle cx="40" cy="70" r="5.5" fill="#eef2db"/>
+      <circle cx="104" cy="70" r="13" fill="#3a3b2f"/><circle cx="104" cy="70" r="5.5" fill="#eef2db"/>
+    </symbol>
+    <symbol id="s-urso" viewBox="0 0 100 114">
+      <circle cx="27" cy="22" r="12" fill="#c99467"/><circle cx="73" cy="22" r="12" fill="#c99467"/>
+      <circle cx="27" cy="22" r="6" fill="#f1d6b8"/><circle cx="73" cy="22" r="6" fill="#f1d6b8"/>
+      <ellipse cx="25" cy="80" rx="9" ry="12" fill="#c99467"/><ellipse cx="75" cy="80" rx="9" ry="12" fill="#c99467"/>
+      <ellipse cx="50" cy="86" rx="25" ry="23" fill="#c99467"/>
+      <ellipse cx="50" cy="90" rx="14" ry="13" fill="#f1d6b8"/>
+      <circle cx="36" cy="106" r="9" fill="#c99467"/><circle cx="64" cy="106" r="9" fill="#c99467"/>
+      <circle cx="50" cy="40" r="26" fill="#c99467"/>
+      <ellipse cx="50" cy="49" rx="11" ry="8" fill="#f1d6b8"/>
+      <ellipse cx="50" cy="45" rx="4" ry="3" fill="#3a3b2f"/>
+      <circle cx="41" cy="36" r="2.6" fill="#3a3b2f"/><circle cx="59" cy="36" r="2.6" fill="#3a3b2f"/>
+      <path d="M41 63 L50 67 L41 71Z M59 63 L50 67 L59 71Z" fill="#AFBE6C"/><circle cx="50" cy="67" r="2.5" fill="#5c6a26"/>
+    </symbol>
+    <symbol id="s-fralda" viewBox="0 0 34 26">
+      <path d="M2 4 Q2 2 4 2 L30 2 Q32 2 32 4 L32 9 Q24 11 21 22 Q20 24 17 24 Q14 24 13 22 Q10 11 2 9Z" fill="#fff" stroke="#AFBE6C" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M2 6 H32" stroke="#AFBE6C" stroke-width="2"/>
+      <circle cx="7" cy="6" r="2" fill="#5c6a26"/><circle cx="27" cy="6" r="2" fill="#5c6a26"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <header class="hero">
+    <span class="nuvem n1"></span><span class="nuvem n2"></span>
+    <span class="estrela" style="top:18px;right:30px">✦</span>
+    <span class="estrela" style="top:92px;left:22px;font-size:12px">✦</span>
+    <span class="convite">Você está convidado(a)</span>
+    <h1><span class="l1" id="titulo">Chá de Fraldas</span><span class="l2" id="bebe">do Miguel</span></h1>
+    <p class="data hidden" id="dataLocal"></p>
+    <div class="cena" aria-hidden="true">
+      <svg class="cavalo" viewBox="0 0 140 120"><use href="#s-cavalo"/></svg>
+      <svg class="urso" viewBox="0 0 100 114"><use href="#s-urso"/></svg>
+      <svg class="carro" viewBox="0 0 140 92"><use href="#s-carro"/></svg>
+    </div>
+    <div class="grama"></div>
+  </header>
+
+  <section class="card carta">
+    <p class="ola">Oi! Eu sou o Miguel 👶</p>
+    <p>Estou quase chegando e já estou contando os dias para conhecer você! Para me preparar para essa grande aventura, vou fazer o meu <strong>chá de fraldas</strong> e quero muito que você faça parte desse momento.</p>
+    <p>Além da fralda, traga também um <strong>mimo</strong>, eu vou amar! 🧸</p>
+    <div class="marca">
+      <svg viewBox="0 0 34 26" aria-hidden="true"><use href="#s-fralda"/></svg>
+      <span>As fraldas podem ser da marca <strong>Huggies</strong> ou <strong>Pampers</strong>, são as que mais combinam comigo!</span>
+    </div>
+    <p class="assina">Com carinho,<br><span>Miguel</span></p>
+    <p class="dica">Confirme abaixo e escolha o tamanho da sua fralda 👇</p>
+  </section>
+
+  <div id="carregando" class="loading">Carregando…</div>
+
+  <form id="form" class="hidden" autocomplete="off" onsubmit="return false">
+    <section class="card">
+      <div class="step"><i>1</i>Seu nome</div>
+      <label class="q" for="nome">Como podemos te chamar?</label>
+      <input type="text" id="nome" maxlength="120" placeholder="Nome e sobrenome">
+    </section>
+
+    <section class="card">
+      <div class="step"><i>2</i>Presença</div>
+      <p class="q">Você vai comparecer?</p>
+      <div class="choices">
+        <button type="button" class="choice" data-presenca="Presente" aria-pressed="false"><span class="emo">🎉</span><div><strong>Vou comparecer</strong><span>Confirmar presença</span></div></button>
+        <button type="button" class="choice" data-presenca="Ausente" aria-pressed="false"><span class="emo">💌</span><div><strong>Não poderei ir</strong><span>Mas quero ajudar</span></div></button>
+      </div>
+    </section>
+
+    <section class="card hidden" id="secContrib">
+      <div class="step"><i>3</i>Contribuição</div>
+      <p class="q">Como prefere contribuir?</p>
+      <div class="choices">
+        <button type="button" class="choice" data-contrib="Entrega posterior" aria-pressed="false"><span class="emo">🎁</span><div><strong>Entrego depois</strong><span>Levo a fralda em outro dia</span></div></button>
+        <button type="button" class="choice" data-contrib="Pix" aria-pressed="false"><span class="emo">💚</span><div><strong>Via Pix</strong><span>Código copia e cola</span></div></button>
+      </div>
+    </section>
+
+    <section class="card hidden" id="secTamanho">
+      <div class="step"><i id="numTamanho">3</i>Fralda</div>
+      <p class="q">Escolha o tamanho da fralda</p>
+      <p class="note" style="margin:-8px 0 12px">Marcas: Huggies ou Pampers</p>
+      <div class="sizes" id="sizes"></div>
+      <p class="note hidden" id="notaEntrega">Para entrega posterior, os tamanhos disponíveis são P, M e G.</p>
+      <p class="note hidden" id="esgotadas">Todos os tamanhos já foram escolhidos — você pode confirmar mesmo assim. 💚</p>
+    </section>
+
+    <section class="card hidden" id="secPix">
+      <div class="step"><i>4</i>Pix</div>
+      <p class="q">Copie o código e cole no app do seu banco</p>
+      <div class="pixbox">
+        <textarea id="pixCode" readonly></textarea>
+        <button type="button" class="copy" id="btnCopy">📋 Copiar código Pix</button>
+      </div>
+    </section>
+
+    <button type="button" class="btn" id="btnEnviar" disabled>Confirmar</button>
+    <p class="err hidden" id="erro"></p>
+  </form>
+
+  <section class="card thanks hidden" id="obrigado">
+    <svg class="cav cavalo" viewBox="0 0 140 120" aria-hidden="true"><use href="#s-cavalo"/></svg>
+    <h2>Obrigado!</h2>
+    <p id="resumo"></p>
+    <div class="pixbox hidden" id="pixFinal" style="margin-top:16px;text-align:left">
+      <textarea id="pixCode2" readonly></textarea>
+      <button type="button" class="copy" id="btnCopy2">📋 Copiar código Pix</button>
+    </div>
+  </section>
+
+  <p class="rodape">
+    <svg viewBox="0 0 140 92" aria-hidden="true"><use href="#s-carro"/></svg>
+    O Miguel agradece o carinho!
+  </p>
+</div>
+
+<script>
+  const TAMANHOS = ['RN','P','M','G'];
+  const NOMES = {RN:'Recém-nascido', P:'Pequena', M:'Média', G:'Grande'};
+  const st = {presenca:null, contribuicao:null, tamanho:null};
+  let disp = {}, total = {}, pix = '', semEntrega = ['RN'], enviando = false;
+
+  // ⬇️ COLE AQUI o "URL do app da Web" do Apps Script (termina em /exec)
+  const API_URL = 'https://script.google.com/macros/s/AKfycbzNABX4ZVL23G1aXPThQJMo8QsJ1WqflzMpZZ44TBUyZxIv4BebS8CGMDbudJ7PcIhy/exec';
+
+  // Modo demonstração enquanto o link acima não for colado
+  const DEMO = !/^https:\/\/script\.google\.com\//.test(API_URL);
+  const demo = {
+    _d:{RN:3,P:10,M:15,G:4},
+    getDisponivel(){ return {disponivel:{...this._d}, total:{RN:3,P:10,M:15,G:4}, titulo:'Chá de Fraldas', bebe:'do Miguel', dataLocal:'', semEntrega:['RN'],
+      pix:'00020126330014br.gov.bcb.pix0111041297715075204000053039865802BR5925JOSE ALIRIO DE SOUZA OLIV6015LAURO DE FREITA62580520SAN2026101202012228650300017br.gov.bcb.brcode01051.0.06304CCC1'}; },
+    registrar(d){ if(d.tamanho){ if(this._d[d.tamanho]<=0) return {ok:false,erro:'esgotado',disponivel:{...this._d}}; this._d[d.tamanho]--; } return {ok:true,disponivel:{...this._d}}; }
+  };
+  async function api(fn, arg){
+    if (DEMO) return new Promise(res => setTimeout(() => res(demo[fn](arg)), 250));
+    const opts = fn === 'registrar'
+      ? { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify(arg) }
+      : { method:'GET', cache:'no-store' };
+    const r = await fetch(API_URL, opts);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  }
+
+  const $ = id => document.getElementById(id);
+  const nomeEl = $('nome');
+
+  const ehEntrega = () => st.presenca === 'Ausente' && st.contribuicao === 'Entrega posterior';
+  const precisaTamanho = () => st.presenca === 'Presente' || ehEntrega();
+  const permitidos = () => TAMANHOS.filter(t => t in total && !(ehEntrega() && semEntrega.indexOf(t) !== -1));
+  const todasEsgotadas = () => permitidos().every(t => (disp[t]||0) <= 0);
+
+  function renderSizes(){
+    const box = $('sizes'); box.innerHTML = '';
+    const lista = permitidos();
+    box.style.setProperty('--n', lista.length);
+    lista.forEach(t => {
+      const sel = st.tamanho === t;
+      const restam = Math.max(0, (disp[t]||0) - (sel ? 1 : 0));
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'size';
+      b.setAttribute('aria-pressed', sel);
+      b.disabled = (disp[t]||0) <= 0 && !sel;
+      b.innerHTML = '<svg viewBox="0 0 34 26" aria-hidden="true"><use href="#s-fralda"/></svg><b>'+t+'</b><small>'+NOMES[t]+'</small><span class="left">'+
+        (restam === 0 && !sel ? 'Esgotada' : 'Restam '+restam)+'</span><div class="bar"><i style="width:'+
+        (total[t] ? restam/total[t]*100 : 0)+'%"></i></div>';
+      b.onclick = () => { st.tamanho = sel ? null : t; render(); };
+      box.appendChild(b);
+    });
+  }
+
+  function render(){
+    document.querySelectorAll('[data-presenca]').forEach(b => b.setAttribute('aria-pressed', b.dataset.presenca === st.presenca));
+    document.querySelectorAll('[data-contrib]').forEach(b => b.setAttribute('aria-pressed', b.dataset.contrib === st.contribuicao));
+
+    $('secContrib').classList.toggle('hidden', st.presenca !== 'Ausente');
+    $('secTamanho').classList.toggle('hidden', !precisaTamanho());
+    $('secPix').classList.toggle('hidden', !(st.presenca === 'Ausente' && st.contribuicao === 'Pix'));
+    $('numTamanho').textContent = st.presenca === 'Ausente' ? '4' : '3';
+    $('notaEntrega').classList.toggle('hidden', !ehEntrega() || todasEsgotadas());
+    $('esgotadas').classList.toggle('hidden', !todasEsgotadas());
+
+    if (!precisaTamanho()) st.tamanho = null;
+    if (st.tamanho && (permitidos().indexOf(st.tamanho) === -1 || (disp[st.tamanho]||0) <= 0)) st.tamanho = null;
+    renderSizes();
+
+    let ok = nomeEl.value.trim().length >= 2 && !!st.presenca;
+    if (st.presenca === 'Ausente') ok = ok && !!st.contribuicao;
+    if (precisaTamanho()) ok = ok && (!!st.tamanho || todasEsgotadas());
+    $('btnEnviar').disabled = !ok || enviando;
+    $('btnEnviar').textContent = enviando ? 'Enviando…' : 'Confirmar';
+  }
+
+  function erro(msg){ const e = $('erro'); e.textContent = msg || ''; e.classList.toggle('hidden', !msg); }
+
+  document.querySelectorAll('[data-presenca]').forEach(b => b.onclick = () => {
+    st.presenca = b.dataset.presenca;
+    if (st.presenca === 'Presente') st.contribuicao = null;
+    erro(); render();
+  });
+  document.querySelectorAll('[data-contrib]').forEach(b => b.onclick = () => { st.contribuicao = b.dataset.contrib; erro(); render(); });
+  nomeEl.addEventListener('input', render);
+
+  function copiar(textarea, btn){
+    const txt = textarea.value;
+    const orig = '📋 Copiar código Pix';
+    const done = () => { btn.textContent = '✅ Código copiado!'; setTimeout(() => btn.textContent = orig, 2000); };
+    const fallback = () => {
+      textarea.focus(); textarea.select(); textarea.setSelectionRange(0, txt.length);
+      try { document.execCommand('copy') ? done() : (btn.textContent = 'Toque no código e copie manualmente'); }
+      catch(e) { btn.textContent = 'Toque no código e copie manualmente'; }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, fallback);
+    else fallback();
+  }
+  $('btnCopy').onclick = () => copiar($('pixCode'), $('btnCopy'));
+  $('btnCopy2').onclick = () => copiar($('pixCode2'), $('btnCopy2'));
+
+  $('btnEnviar').onclick = async () => {
+    if (enviando) return;
+    enviando = true; erro(); render();
+    const dados = {
+      nome: nomeEl.value.trim(),
+      presenca: st.presenca,
+      contribuicao: st.presenca === 'Ausente' ? st.contribuicao : '',
+      tamanho: precisaTamanho() ? (st.tamanho || '') : ''
+    };
+    try {
+      const r = await api('registrar', dados);
+      if (r.disponivel) disp = r.disponivel;
+      if (r.ok) return obrigado(dados);
+      if (r.erro === 'esgotado') { st.tamanho = null; erro('Ops! Alguém acabou de escolher a última desse tamanho. Escolha outro, por favor.'); }
+      else erro('Confira os campos e tente novamente.');
+    } catch(e) {
+      erro('Não foi possível enviar. Verifique sua conexão e tente de novo.');
+    }
+    enviando = false; render();
+  };
+
+  function obrigado(d){
+    $('form').classList.add('hidden');
+    $('obrigado').classList.remove('hidden');
+    const primeiro = d.nome.split(' ')[0];
+    let txt;
+    if (d.presenca === 'Presente') txt = primeiro + ', sua presença está confirmada' + (d.tamanho ? ' com a fralda tamanho ' + d.tamanho : '') + '. Até lá!';
+    else if (d.contribuicao === 'Pix') txt = primeiro + ', sentiremos sua falta! Se ainda não fez o Pix, o código está aqui embaixo.';
+    else txt = primeiro + ', sentiremos sua falta! Anotamos que você entregará ' + (d.tamanho ? 'a fralda tamanho ' + d.tamanho : 'sua contribuição') + ' depois.';
+    $('resumo').textContent = txt;
+    if (d.contribuicao === 'Pix') { $('pixFinal').classList.remove('hidden'); $('pixCode2').value = pix; }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  async function carregar(primeira){
+    try {
+      const r = await api('getDisponivel');
+      disp = r.disponivel; total = r.total; pix = r.pix || ''; if (r.semEntrega) semEntrega = r.semEntrega;
+      if (primeira) {
+        if (r.titulo) $('titulo').textContent = r.titulo;
+        if (r.bebe) $('bebe').textContent = r.bebe;
+        if (r.dataLocal) { $('dataLocal').textContent = r.dataLocal; $('dataLocal').classList.remove('hidden'); }
+        $('pixCode').value = pix;
+        $('carregando').classList.add('hidden');
+        $('form').classList.remove('hidden');
+      }
+      if (!enviando) render();
+    } catch(e) {
+      if (primeira) $('carregando').textContent = 'Não foi possível carregar. Atualize a página.';
+    }
+  }
+  carregar(true);
+  setInterval(() => { if (!$('form').classList.contains('hidden')) carregar(false); }, 30000);
+</script>
+</body>
+</html>
